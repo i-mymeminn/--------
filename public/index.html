@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <link href="main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-storage-compat.js"></script>
+   
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <script type="module">
+      const firebaseConfig = {
+        apiKey: "AIzaSyDCSwvY_M3NMWf_U1WsUhAsY5PBYZOSU9s",
+        authDomain: "applemarket-677e0.firebaseapp.com",
+        databaseURL: "https://applemarket-677e0-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "applemarket-677e0",
+        storageBucket: "applemarket-677e0.appspot.com",
+        messagingSenderId: "684685702521",
+        appId: "1:684685702521:web:1d707b7ff4fa96859a6ba8",
+        measurementId: "G-YKNDPMVP4D"
+      };
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      //Async function to fetch documents
+      async function fetchDocuments() {
+        const querySnapshot = await getDocs(collection(db,"product"));
+        querySnapshot.forEach((결과) => {
+          console.log(`${결과.id} => ${결과.data()}`);
+          console.log(결과.data());
+
+          var 템플릿 = `<div class="product">
+            <div class="thumbnail" style="background-image: url('${결과.data().이미지URL}')"></div>
+            <div class="flex-grow-1 p-4">
+              <h5 class="title">${결과.data().제목}</h5>
+              <p class="date">2030년 1월 19일</p>
+              <p class="price">${결과.data().가격}</p>
+              <p class="float-end">❤0</p>
+            </div>
+          </div>`
+          $('.container').append(템플릿)
+        });
+      }
+      fetchDocuments();
+      // try {
+      //   let app = firebase.app();
+      //   let features = [
+      //     'auth', 
+      //     'database', 
+      //     'firestore',
+      //     'functions',
+      //     'messaging', 
+      //     'storage', 
+      //     'analytics', 
+      //     'remoteConfig',
+      //     'performance',
+      //   ].filter(feature => typeof app[feature] === 'function');
+      //   loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+      // } catch (e) {
+      //   console.error(e);
+      //   loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+      // }
+    </script>
+
+    <div class="container mt-3"></div>
+    </div>
+  </body>
+</html>
